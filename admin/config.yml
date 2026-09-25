@@ -1,0 +1,42 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "uploads"
+public_folder: "/uploads"
+
+locale: "en"
+
+collections:
+  - name: "news"
+    label: "Jaunumi"
+    files:
+      - file: "content/news.json"
+        label: "Jaunumu saraksts"
+        name: "news"
+        fields:
+          - label: "Ieraksti"
+            name: "items"
+            widget: "list"
+            label_singular: "Ieraksts"
+            summary: "{{title}}"
+            fields:
+              - {label: "Virsraksts", name: "title", widget: "string"}
+              - {label: "Datums", name: "date", widget: "date", format: "YYYY-MM-DD"}
+              - {label: "Kopsavilkums", name: "summary", widget: "text"}
+
+  - name: "padome"
+    label: "Konsultatīvā padome"
+    files:
+      - file: "content/padome.json"
+        label: "Padomes locekļi"
+        name: "padome"
+        fields:
+          - label: "Locekļi"
+            name: "members"
+            widget: "list"
+            label_singular: "Loceklis"
+            summary: "{{name}}"
+            fields:
+              - {label: "Vārds, uzvārds", name: "name", widget: "string"}
+              - {label: "Loma / apraksts", name: "role", widget: "string"}
