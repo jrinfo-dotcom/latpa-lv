@@ -40,3 +40,62 @@ collections:
             fields:
               - {label: "Vārds, uzvārds", name: "name", widget: "string"}
               - {label: "Loma / apraksts", name: "role", widget: "string"}
+
+  - name: "resources"
+    label: "Resursi"
+    files:
+      - file: "content/resources.json"
+        label: "Noderīgas saites"
+        name: "resources"
+        fields:
+          - label: "Saites"
+            name: "links"
+            widget: "list"
+            label_singular: "Saite"
+            summary: "{{title}}"
+            fields:
+              - {label: "Nosaukums", name: "title", widget: "string"}
+              - {label: "Saite (URL)", name: "url", widget: "string"}
+              - {label: "Apraksts", name: "description", widget: "text", required: false}
+
+  - name: "projects"
+    label: "Projekti"
+    files:
+      - file: "content/projects.json"
+        label: "Projektu saraksts"
+        name: "projects"
+        fields:
+          - label: "Projekti"
+            name: "items"
+            widget: "list"
+            label_singular: "Projekts"
+            summary: "{{title}}"
+            fields:
+              - {label: "Nosaukums", name: "title", widget: "string"}
+              - {label: "Statuss", name: "status", widget: "select", options: ["Plānots", "Norisinās", "Pabeigts"], default: "Plānots"}
+              - {label: "Apraksts", name: "description", widget: "text"}
+              - {label: "Saite (nav obligāti)", name: "url", widget: "string", required: false}
+
+  - name: "events"
+    label: "Pasākumi"
+    files:
+      - file: "content/events.json"
+        label: "Pasākumu saraksts"
+        name: "events"
+        fields:
+          - label: "Ieraksti"
+            name: "items"
+            widget: "list"
+            label_singular: "Ieraksts"
+            summary: "{{title}}"
+            fields:
+              - label: "Kategorija"
+                name: "category"
+                widget: "select"
+                options:
+                  - {label: "Aicinājumi iesniegt rakstus", value: "raksti"}
+                  - {label: "Aicinājumi uz konferencēm", value: "konferences"}
+                  - {label: "Gaidāmie pasākumi", value: "pasakumi"}
+              - {label: "Nosaukums", name: "title", widget: "string"}
+              - {label: "Saite (URL)", name: "url", widget: "string"}
+              - {label: "Info (datumi, termiņš)", name: "info", widget: "string"}
