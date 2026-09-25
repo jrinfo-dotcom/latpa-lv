@@ -238,9 +238,23 @@
       <div class="rail-label">Saites</div>
       <div>
         <h2>Noderīgas saites</h2>
+        <div id="resources-list" class="link-list" style="margin-top:4px;"></div>
       </div>
     </div>
   </section>
+  <script>
+  fetch('/content/resources.json').then(function(r){return r.json();}).then(function(data){
+    var el = document.getElementById('resources-list');
+    var links = (data && data.links) || [];
+    if (!links.length) return;
+    el.innerHTML = links.map(function(l){
+      return '<a class="link-row" href="' + (l.url||'#') + '" target="_blank" rel="noopener">' +
+        '<h3>' + (l.title||'') + '</h3>' +
+        (l.description ? '<p>' + l.description + '</p>' : '') +
+      '</a>';
+    }).join('');
+  }).catch(function(){});
+  </script>
 
 </main>
 <footer>

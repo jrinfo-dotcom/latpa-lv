@@ -233,6 +233,31 @@
     <span class="kicker">Projekti</span>
   </div>
 
+  <section style="border-bottom:none;">
+    <div class="wrap">
+      <div id="projects-list" class="goal-list"></div>
+    </div>
+  </section>
+  <script>
+  fetch('/content/projects.json').then(function(r){return r.json();}).then(function(data){
+    var el = document.getElementById('projects-list');
+    var items = (data && data.items) || [];
+    if (!items.length) {
+      el.innerHTML = '<div class="coming"><p>Pirmie projekti tiek gatavoti.</p></div>';
+      return;
+    }
+    el.innerHTML = items.map(function(p){
+      var link = p.url ? '<p><a href="' + p.url + '" target="_blank" rel="noopener">Uzzināt vairāk →</a></p>' : '';
+      return '<div class="goal-row">' +
+        '<h3>' + (p.title||'') + '</h3>' +
+        '<p style="color:var(--amber-deep); font-size:0.85rem; margin:2px 0 6px;">' + (p.status||'') + '</p>' +
+        '<p>' + (p.description||'') + '</p>' +
+        link +
+      '</div>';
+    }).join('');
+  }).catch(function(){});
+  </script>
+
 </main>
 <footer>
   <div class="wrap footer-grid">

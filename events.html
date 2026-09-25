@@ -238,32 +238,7 @@
       <div class="rail-label">CFP</div>
       <div>
         <h2>Aicinājumi iesniegt rakstus</h2>
-        <div class="link-list" style="margin-top:4px;">
-          <a class="link-row" href="https://www.jatjournal.org/index.php/jat/issuetypes" target="_blank" rel="noopener">
-            <h3>Journal of Audiovisual Translation — tematiski nesaistīts izdevums</h3>
-            <p>Termiņš: nepārtraukts</p>
-          </a>
-          <a class="link-row" href="https://www.paralleles.unige.ch/en/soumissions/" target="_blank" rel="noopener">
-            <h3>Parallèles — tematiski nesaistīts izdevums</h3>
-            <p>Termiņš: nepārtraukts</p>
-          </a>
-          <a class="link-row" href="https://studiasemiotyczne.pts.edu.pl/index.php/Studiasemiotyczne" target="_blank" rel="noopener">
-            <h3>Studia Semiotyczne — īpašais izdevums "Translation–Semiotics–Music"</h3>
-            <p>Termiņš: 2026. gada 30. septembris</p>
-          </a>
-          <a class="link-row" href="https://www.jostrans.org/about/cfc51" target="_blank" rel="noopener">
-            <h3>JoSTrans — īpašais viesredaktora izdevums (2029. gada janvāris)</h3>
-            <p>Termiņš: 2026. gada 1. novembris</p>
-          </a>
-          <a class="link-row" href="https://www.bridge.ff.ukf.sk/index.php/bridge/announcement/view/11" target="_blank" rel="noopener">
-            <h3>Bridge Vol. 7, No. 2 — "Audiovisual Translation at the Crossroads: Bridging Media Accessibility, AI, and EFL Education"</h3>
-            <p>Termiņš: 2026. gada 23. novembris</p>
-          </a>
-          <a class="link-row" href="https://www.e-revistes.uji.es/index.php/monti/announcement/view/278" target="_blank" rel="noopener">
-            <h3>MonTI 20 (2028) — "Creativity in Translation: New Perspectives in Current Educational and Professional Scenarios"</h3>
-            <p>Termiņš: 2027. gada 31. maijs</p>
-          </a>
-        </div>
+        <div id="cfp-raksti" class="link-list" style="margin-top:4px;"></div>
       </div>
     </div>
   </section>
@@ -273,12 +248,7 @@
       <div class="rail-label">CFP</div>
       <div>
         <h2>Aicinājumi uz konferencēm</h2>
-        <div class="link-list" style="margin-top:4px;">
-          <a class="link-row" href="https://easiantpa.leeds.ac.uk/2nd-eatpa-symposium-on-east-asian-translation-pedagogy/" target="_blank" rel="noopener">
-            <h3>2nd EATPA Symposium on East Asian Translation Pedagogy</h3>
-            <p>18.–19. jūnijs 2027, University of Toronto (Scarborough) · Termiņš: 2026. gada 30. septembris</p>
-          </a>
-        </div>
+        <div id="cfp-konferences" class="link-list" style="margin-top:4px;"></div>
       </div>
     </div>
   </section>
@@ -288,35 +258,32 @@
       <div class="rail-label">Kalendārs</div>
       <div>
         <h2>Gaidāmie pasākumi</h2>
-        <div class="link-list" style="margin-top:4px;">
-          <a class="link-row" href="https://conferences.ionio.gr/tiera/en/about/" target="_blank" rel="noopener">
-            <h3>TIERA — Translating and Interpreting in the Era of Algorithms</h3>
-            <p>9.–11. oktobris 2026</p>
-          </a>
-          <a class="link-row" href="https://blogs.uned.es/tradit26/" target="_blank" rel="noopener">
-            <h3>Tradit26 — 2nd International Conference on Didactic Audiovisual Translation and Media Accessibility</h3>
-            <p>15.–16. oktobris 2026, UNED, Spānija</p>
-          </a>
-          <a class="link-row" href="https://waset.org/translation-conference-in-october-2026-in-london" target="_blank" rel="noopener">
-            <h3>ICT 2026 — 20th International Conference on Translation</h3>
-            <p>21.–22. oktobris 2026, Londona, UK</p>
-          </a>
-          <a class="link-row" href="https://asling.org/tc47/" target="_blank" rel="noopener">
-            <h3>TC47 — 47th Translating and the Computer Conference</h3>
-            <p>8.–10. decembris 2026, Luksemburga</p>
-          </a>
-          <a class="link-row" href="https://event.trippus.net/Home/Index/AEAKgIOkui8EksQ3X-TCO5WQamWhNWVT_a663RdHFmy6tkKX3MBkK1xx--zTwMc18enYVAnHhb85" target="_blank" rel="noopener">
-            <h3>InDialog 5 — The Technological Turn and Public Service Translation and Interpreting</h3>
-            <p>10.–11. decembris 2026, Oslo Metropolitan University, Norvēģija</p>
-          </a>
-          <a class="link-row" href="https://docs.google.com/document/d/1H9ipN_k3AxUcQyL5knXFVMJljyDxkNJWOqocIdV58S4/edit" target="_blank" rel="noopener">
-            <h3>Translation and Neurodiversity</h3>
-            <p>18.–19. marts 2027, tiešsaistē</p>
-          </a>
-        </div>
+        <div id="cfp-pasakumi" class="link-list" style="margin-top:4px;"></div>
       </div>
     </div>
   </section>
+  <script>
+  fetch('/content/events.json').then(function(r){return r.json();}).then(function(data){
+    var items = (data && data.items) || [];
+    function render(containerId, category, emptyText){
+      var el = document.getElementById(containerId);
+      var list = items.filter(function(it){ return it.category === category; });
+      if (!list.length){
+        el.innerHTML = '<div class="coming"><p>' + emptyText + '</p></div>';
+        return;
+      }
+      el.innerHTML = list.map(function(it){
+        return '<a class="link-row" href="' + (it.url||'#') + '" target="_blank" rel="noopener">' +
+          '<h3>' + (it.title||'') + '</h3>' +
+          '<p>' + (it.info||'') + '</p>' +
+        '</a>';
+      }).join('');
+    }
+    render('cfp-raksti', 'raksti', 'Šobrīd nav aktīvu aicinājumu.');
+    render('cfp-konferences', 'konferences', 'Šobrīd nav aktīvu aicinājumu.');
+    render('cfp-pasakumi', 'pasakumi', 'Šobrīd nav paziņotu pasākumu.');
+  }).catch(function(){});
+  </script>
 
 </main>
 <footer>
